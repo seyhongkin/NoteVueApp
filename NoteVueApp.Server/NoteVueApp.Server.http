@@ -1,0 +1,6 @@
+@NoteVueApp.Server_HostAddress = http://localhost:5029
+
+GET {{NoteVueApp.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

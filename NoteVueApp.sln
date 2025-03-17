@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "notevueapp.client", "notevueapp.client\notevueapp.client.esproj", "{732F3978-DD8F-7D67-4675-80C124EA7BC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteVueApp.Server", "NoteVueApp.Server\NoteVueApp.Server.csproj", "{FC42AE76-9FB4-48F7-B2A4-4A9FE22249EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{732F3978-DD8F-7D67-4675-80C124EA7BC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{732F3978-DD8F-7D67-4675-80C124EA7BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{732F3978-DD8F-7D67-4675-80C124EA7BC3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{732F3978-DD8F-7D67-4675-80C124EA7BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{732F3978-DD8F-7D67-4675-80C124EA7BC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{732F3978-DD8F-7D67-4675-80C124EA7BC3}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{FC42AE76-9FB4-48F7-B2A4-4A9FE22249EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC42AE76-9FB4-48F7-B2A4-4A9FE22249EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC42AE76-9FB4-48F7-B2A4-4A9FE22249EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC42AE76-9FB4-48F7-B2A4-4A9FE22249EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DB76282E-3962-4966-BFFD-A752CA09A679}
+	EndGlobalSection
+EndGlobal
