@@ -1,1 +1,2 @@
 D:\Programming\AspDotNet\NoteVueApp\notevueapp.client\obj\Debug\notevueapp.client.esproj.CoreCompileInputs.cache
+D:\Development\AspDotNet\NoteVueApp\notevueapp.client\obj\Debug\notevueapp.client.esproj.CoreCompileInputs.cache

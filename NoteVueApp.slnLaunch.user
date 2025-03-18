@@ -1,0 +1,16 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "notevueapp.client\\notevueapp.client.esproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "NoteVueApp.Server\\NoteVueApp.Server.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  }
+]

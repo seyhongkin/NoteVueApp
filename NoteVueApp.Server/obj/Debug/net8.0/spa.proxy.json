@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:61583",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "D:\\Programming\\AspDotNet\\NoteVueApp\\NoteVueApp.Server\\..\\notevueapp.client",
+"WorkingDirectory": "D:\\Development\\AspDotNet\\NoteVueApp\\NoteVueApp.Server\\..\\notevueapp.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }

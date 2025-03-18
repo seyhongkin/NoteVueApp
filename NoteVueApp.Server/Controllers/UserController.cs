@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using NoteVueApp.Server.DTOs;
 using NoteVueApp.Server.Services;
 
 namespace NoteVueApp.Server.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("/api/[controller]")]
     public class UserController : Controller
@@ -20,11 +23,19 @@ namespace NoteVueApp.Server.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register([FromBody] UserDTO userDto)
         {
-            var user = await _userService.GetUserById(id);
-            return user == null ? NotFound() : Ok(user);
+            var result = await _userService.AddUser(userDto);
+
+            return Ok(result);
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
+        {
+            var result = await _userService.Login(loginDto);
+            return Ok(result);
         }
     }
 }

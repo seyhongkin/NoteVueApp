@@ -1,13 +1,14 @@
-﻿using NoteVueApp.Server.Entities;
+﻿using NoteVueApp.Server.DTOs;
+using NoteVueApp.Server.Entities;
 
 namespace NoteVueApp.Server.Repositories
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<User>> GetAllUsers();
-        Task<User> GetUserById(int id);
-        Task AddUser(User user);
-        Task UpdateUser(User user);
-        Task DeleteUser(int id);
+        Task<IEnumerable<UserResourceDTO>> GetAllUsers();
+        Task AddUser(UserDTO userDto);
+        Task<User?> GetUserByCredential(LoginDTO loginDTO);
+        Task<bool> ExistsByUsername(string username);
+        Task<bool> ExistsByEmail(string email);
     }
 }

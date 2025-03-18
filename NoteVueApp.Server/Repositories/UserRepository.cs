@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using NoteVueApp.Server.DTOs;
 using NoteVueApp.Server.Entities;
 using System.Data;
 
@@ -12,34 +13,58 @@ namespace NoteVueApp.Server.Repositories
             _dbConnection = dbConnection;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<UserResourceDTO>> GetAllUsers()
         {
-            string sql = "SELECT * FROM Users";
-            return await _dbConnection.QueryAsync<User>(sql);
+            string sql = "SELECT Username, Email FROM Users";
+            return await _dbConnection.QueryAsync<UserResourceDTO>(sql);
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task AddUser(UserDTO userDTO)
         {
-            string sql = "SELECT * FROM Users WHERE Id = @Id";
-            return await _dbConnection.QueryFirstOrDefaultAsync<User>(sql, new { Id = id });
+            string sql = "INSERT INTO Users (Username, Email, Password) VALUES (@Username, @Email, @Password)";
+            await _dbConnection.ExecuteAsync(sql, userDTO);
         }
 
-        public async Task AddUser(User user)
+        public async Task<User?> GetUserByCredential(LoginDTO loginDTO)
         {
-            string sql = "INSERT INTO Users (Name, Email, Age) VALUES (@Name, @Email, @Age)";
-            await _dbConnection.ExecuteAsync(sql, user);
+            string sql = "SELECT * FROM Users WHERE Username = @Username";
+
+            var user = await _dbConnection.QuerySingleOrDefaultAsync<User>(sql, new { loginDTO.Username });
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(loginDTO.Password, user.Password))
+            {
+                return null;
+            }
+
+            return user;
         }
 
-        public async Task UpdateUser(User user)
+        public async Task<bool> ExistsByUsername(string username)
         {
-            string sql = "UPDATE Users SET Name = @Name, Email = @Email, Age = @Age WHERE Id = @Id";
-            await _dbConnection.ExecuteAsync(sql, user);
+            string sql = "SELECT * FROM Users WHERE username = @Username";
+
+            var user = await _dbConnection.QuerySingleOrDefaultAsync<User>(sql, new { Username = username });
+
+            if (user != null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        public async Task DeleteUser(int id)
+        public async Task<bool> ExistsByEmail(string email)
         {
-            string sql = "DELETE FROM Users WHERE Id = @Id";
-            await _dbConnection.ExecuteAsync(sql, new { Id = id });
+            string sql = "SELECT * FROM Users WHERE email = @Email";
+
+            var user = await _dbConnection.QuerySingleOrDefaultAsync<User>(sql, new { Email = email });
+
+            if (user != null)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
