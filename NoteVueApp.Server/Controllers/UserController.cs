@@ -5,7 +5,6 @@ using NoteVueApp.Server.Services;
 
 namespace NoteVueApp.Server.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("/api/[controller]")]
     public class UserController : Controller
@@ -16,6 +15,7 @@ namespace NoteVueApp.Server.Controllers
             _userService = userService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

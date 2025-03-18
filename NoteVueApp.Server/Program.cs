@@ -17,8 +17,9 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 // Register Repository and Services
 builder.Services.AddSingleton<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<INoteRepository, NoteRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<INoteService, NoteService>();
 
 // Add authentication services
 builder.Services.AddAuthorization();
