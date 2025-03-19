@@ -35,50 +35,48 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import axios from "axios";
+  import { ref } from "vue";
+  import axios from "axios";
 
-export default {
-  setup() {
-    const username = ref("");
-    const email = ref("");
-    const password = ref("");
-    const confirmPassword = ref("");
-    const errorMessage = ref("");
-    const successMessage = ref("");
+  export default {
+    setup() {
+      const username = ref("");
+      const email = ref("");
+      const password = ref("");
+      const confirmPassword = ref("");
+      const errorMessage = ref("");
+      const successMessage = ref("");
 
-    const endPoint = "https://localhost:7110/api/User/Register";
+      const endPoint = "https://localhost:7110/api/User/Register";
 
-    const handleSignup = async () => {
-      if (!(username.value.length && email.value.length && password.value.length && confirmPassword.value.length)) {
-        errorMessage.value = "Please input all required information.";
-        return;
-      }
-
-      if (password.value !== confirmPassword.value) {
-        errorMessage.value = "Passwords do not match.";
-        return;
-      }
-
-      try {
-        const response = await axios.post(endPoint, {
-          username: username.value,
-          email: email.value,
-          password: password.value,
-        });
-
-        if (response.data) {
-          successMessage.value = "Signing up...";
-          setTimeout(() => {
-            window.location.href = "/login"; 
-          }, 2000);
+      const handleSignup = async () => {
+        if (!(username.value.length && email.value.length && password.value.length && confirmPassword.value.length)) {
+          errorMessage.value = "Please input all required information.";
+          return;
         }
-      } catch (error) {
-        errorMessage.value = error.response?.data?.message || "Signup failed. Please try again.";
-      }
-    };
 
-    return { username, email, password, confirmPassword, errorMessage, successMessage, handleSignup };
-  },
-};
+        if (password.value !== confirmPassword.value) {
+          errorMessage.value = "Passwords do not match.";
+          return;
+        }
+
+        try {
+          const response = await axios.post(endPoint, {
+            username: username.value,
+            email: email.value,
+            password: password.value,
+          });
+
+          if (response.data) {
+            successMessage.value = "Signing up...";
+            window.location.href = "/login";
+          }
+        } catch (error) {
+          errorMessage.value = error.response?.data?.message || "Signup failed. Please try again.";
+        }
+      };
+
+      return { username, email, password, confirmPassword, errorMessage, successMessage, handleSignup };
+    },
+  };
 </script>
