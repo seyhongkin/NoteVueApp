@@ -1,22 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import NotePage from './pages/NotePage.vue';
-import LoginPage from './pages/LoginPage.vue';
-import NoteFormPage from './pages/NoteFormPage.vue';
+import Login from './pages/Login.vue';
+import Signup from './pages/Signup.vue';
+import Home from './pages/Home.vue';
+
+const isAuthenticated = () => !!localStorage.getItem('accessToken');
 
 const routes = [
   {
     path: '/',
-    component: NotePage,
-    meta: { requiresAuth: true }
-  },
-  {
-    path: '/note-form',
-    component: NoteFormPage,
+    component: Home,
     meta: { requiresAuth: true }
   },
   {
     path: '/login',
-    component: LoginPage,
+    component: Login,
+    meta: { requiresGuest: true }
+  },
+  {
+    path: '/signup',
+    component: Signup,
     meta: { requiresGuest: true }
   },
   { path: '/:pathMatch(.*)*', redirect: '/' }
@@ -27,14 +29,11 @@ const router = createRouter({
   routes,
 });
 
-// Function to check authentication status
-const isAuthenticated = () => !!localStorage.getItem('authToken');
-
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !isAuthenticated()) { // Call the function here
-    next("/login");
+  if (to.meta.requiresAuth && !isAuthenticated()) {
+    next('/login');
   } else if (to.meta.requiresGuest && isAuthenticated()) {
-    next("/");
+    next('/');
   } else {
     next();
   }
