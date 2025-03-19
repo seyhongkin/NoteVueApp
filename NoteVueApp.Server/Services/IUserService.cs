@@ -7,8 +7,9 @@ namespace NoteVueApp.Server.Services
     public interface IUserService
     {
         Task<IEnumerable<UserResourceDTO>> GetAllUsers();
-        Task<object> AddUser(UserDTO userDto);
+        Task<UserResourceDTO?> VerifyToken(string token);
+        Task<object?> AddUser(UserDTO userDto);
 
-        Task<object> Login(LoginDTO loginDTO);
+        Task<object?> Login(LoginDTO loginDTO);
     }
 }

@@ -171,3 +171,6 @@ D:\Development\AspDotNet\NoteVueApp\NoteVueApp.Server\obj\Debug\net8.0\refint\No
 D:\Development\AspDotNet\NoteVueApp\NoteVueApp.Server\obj\Debug\net8.0\NoteVueApp.Server.pdb
 D:\Development\AspDotNet\NoteVueApp\NoteVueApp.Server\obj\Debug\net8.0\NoteVueApp.Server.genruntimeconfig.cache
 D:\Development\AspDotNet\NoteVueApp\NoteVueApp.Server\obj\Debug\net8.0\ref\NoteVueApp.Server.dll
+D:\Programming\AspDotNet\NoteVueApp\NoteVueApp.Server\bin\Debug\net8.0\BCrypt.Net-Next.dll
+D:\Programming\AspDotNet\NoteVueApp\NoteVueApp.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Programming\AspDotNet\NoteVueApp\NoteVueApp.Server\obj\Debug\net8.0\NoteVueApp.Server.sourcelink.json

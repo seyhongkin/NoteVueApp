@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "COdRTb08xAEIEZ2x1W8uSQ7ZJO2qW1DcVpxrlCrcfdI=",
+  "Hash": "OxLje4G9HZ8LsunEhhV2cof4eymowR+erN4EbPwh8v0=",
   "Source": "NoteVueApp.Server",
   "BasePath": "_content/NoteVueApp.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "D:\\Development\\AspDotNet\\NoteVueApp\\notevueapp.client\\notevueapp.client.esproj",
+      "Identity": "D:\\Programming\\AspDotNet\\NoteVueApp\\notevueapp.client\\notevueapp.client.esproj",
       "Version": 2,
       "Source": "notevueapp.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",

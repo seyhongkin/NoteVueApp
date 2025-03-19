@@ -66,5 +66,19 @@ namespace NoteVueApp.Server.Repositories
 
             return false;
         }
+
+        public async Task<User?> GetUserById(Guid id)
+        {
+            string sql = "SELECT TOP 1 * FROM Users WHERE Id = @Id";
+
+            var user = await _dbConnection.QuerySingleOrDefaultAsync<User>(sql, new { Id = id });
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return user;
+        }
     }
 }

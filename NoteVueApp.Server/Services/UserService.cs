@@ -18,7 +18,7 @@ namespace NoteVueApp.Server.Services
         }
 
         public Task<IEnumerable<UserResourceDTO>> GetAllUsers() => _userRepository.GetAllUsers();
-        public async Task<object> AddUser(UserDTO userDto)
+        public async Task<object?> AddUser(UserDTO userDto)
         {
             // Validation
             bool isExistsByUsername = await _userRepository.ExistsByUsername(userDto.Username);
@@ -41,12 +41,12 @@ namespace NoteVueApp.Server.Services
             return new { message = "New user register successfully" };
         }
 
-        public async Task<object> Login(LoginDTO loginDTO)
+        public async Task<object?> Login(LoginDTO loginDTO)
         {
             var user = await _userRepository.GetUserByCredential(loginDTO);
             if (user == null)
             {
-                throw new UnauthorizedAccessException("Invalid credentials.");
+                return null;
             }
 
             var token = _jwtTokenService.GenerateToken(user.Id, user.Username);
@@ -54,5 +54,17 @@ namespace NoteVueApp.Server.Services
             return new { Token = token, User = new UserResourceDTO(user.Username, user.Email) };
         }
 
+        public async Task<UserResourceDTO?> VerifyToken(string token)
+        {
+            DecodedTokenDTO dto = _jwtTokenService.DecodeToken(token);
+            User? user = await _userRepository.GetUserById(dto.UserId);
+            if (user == null)
+            {
+                return null;
+            }
+
+            UserResourceDTO userResource = new UserResourceDTO(user.Username, user.Email);
+            return userResource;
+        }
     }
 }

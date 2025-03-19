@@ -7,6 +7,7 @@ namespace NoteVueApp.Server.Repositories
     {
         Task<IEnumerable<UserResourceDTO>> GetAllUsers();
         Task AddUser(UserDTO userDto);
+        Task<User?> GetUserById(Guid id);
         Task<User?> GetUserByCredential(LoginDTO loginDTO);
         Task<bool> ExistsByUsername(string username);
         Task<bool> ExistsByEmail(string email);
