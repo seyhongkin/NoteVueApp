@@ -27,7 +27,7 @@ namespace NoteVueApp.Server.Repositories
             await _dbConnection.ExecuteAsync(sql, parameters);
         }
 
-        public async Task DeleteNote(Guid noteId, Guid userId)
+        public async Task<bool> DeleteNote(Guid noteId, Guid userId)
         {
             string sql = "DELETE FROM Notes WHERE Id = @NoteId AND CreatedBy = @CreatedBy";
             var parameters = new
@@ -35,7 +35,8 @@ namespace NoteVueApp.Server.Repositories
                 NoteId = noteId,
                 CreatedBy = userId
             };
-            await _dbConnection.ExecuteAsync(sql, parameters);
+            int ok = await _dbConnection.ExecuteAsync(sql, parameters);
+            return ok == 1;
         }
 
         public async Task<Note?> FindNoteById(Guid noteId, Guid userId)
@@ -56,7 +57,28 @@ namespace NoteVueApp.Server.Repositories
             return await _dbConnection.QueryAsync<NoteResourceDTO>(sql, new { CreatedBy = userId });
         }
 
-        public async Task UpdateNote(Guid noteId, NoteDTO noteDTO, Guid userId)
+        public async Task<IEnumerable<Note>> GetAllNotesByFilter(string? search, bool? isSortAsc, Guid userId)
+        {
+            string sql = "SELECT * FROM Notes WHERE CreatedBy = @CreatedBy";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("CreatedBy", userId);
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                sql += " AND Title LIKE @Search";
+                parameters.Add("Search", $"%{search}%");
+            }
+
+            // Add sorting
+            string sortDirection = isSortAsc == true ? "ASC" : "DESC";
+            sql += $" ORDER BY CreatedAt {sortDirection}";
+
+            return await _dbConnection.QueryAsync<Note>(sql, parameters);
+        }
+
+
+        public async Task<bool> UpdateNote(Guid noteId, NoteDTO noteDTO, Guid userId)
         {
             string sql = "UPDATE Notes Set Title = @Title, Content = @Content, UpdatedAt = GETDATE() WHERE Id = @NoteId AND CreatedBy = @CreatedBy";
             var parameters = new
@@ -66,7 +88,8 @@ namespace NoteVueApp.Server.Repositories
                 NoteId = noteId,
                 CreatedBy = userId
             };
-            await _dbConnection.ExecuteAsync(sql, parameters);
+            int ok = await _dbConnection.ExecuteAsync(sql, parameters);
+            return ok == 1;
         }
     }
 }

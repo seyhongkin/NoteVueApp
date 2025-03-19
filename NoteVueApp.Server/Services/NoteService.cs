@@ -40,18 +40,22 @@ namespace NoteVueApp.Server.Services
             return await _noteRepository.GetAllNotes(dto.UserId);
         }
 
-        public async Task<object> DeleteNote(Guid noteId, string token)
+        public async Task<bool> DeleteNote(Guid noteId, string token)
         {
             DecodedTokenDTO dto = _jwtTokenService.DecodeToken(token);
-            await _noteRepository.DeleteNote(noteId, dto.UserId);
-            return new { message = "Delete note successully" };
+            return await _noteRepository.DeleteNote(noteId, dto.UserId);
         }
 
-        public async Task<NoteDTO> UpdateNote(Guid noteId, NoteDTO noteDTO, string token)
+        public async Task<bool> UpdateNote(Guid noteId, NoteDTO noteDTO, string token)
         {
             DecodedTokenDTO dto = _jwtTokenService.DecodeToken(token);
-            await _noteRepository.UpdateNote(noteId, noteDTO, dto.UserId);
-            return noteDTO;
+            return await _noteRepository.UpdateNote(noteId, noteDTO, dto.UserId);
+        }
+
+        public async Task<IEnumerable<Note>> GetAllNotesByFilter(string? search, bool? isSortAsc, string token)
+        {
+            DecodedTokenDTO dto = _jwtTokenService.DecodeToken(token);
+            return await _noteRepository.GetAllNotesByFilter(search, isSortAsc, dto.UserId);
         }
     }
 }

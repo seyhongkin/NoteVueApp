@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NoteVueApp.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dd80d8eaccea35633af9d635e80477c58bf72157")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e7428a6046593141ab2b774f951323c292b5796")]
 [assembly: System.Reflection.AssemblyProductAttribute("NoteVueApp.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NoteVueApp.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

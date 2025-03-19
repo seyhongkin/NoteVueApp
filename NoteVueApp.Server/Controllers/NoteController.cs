@@ -41,10 +41,10 @@ namespace NoteVueApp.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(string? search, bool? isSortAsc)
         {
             string token = _jwtTokenService.ExtractTokenFromHeader(Request.Headers);
-            var users = await _noteService.GetAllNotes(token);
+            var users = await _noteService.GetAllNotesByFilter(search, isSortAsc, token);
             return Ok(users);
         }
 
@@ -52,18 +52,27 @@ namespace NoteVueApp.Server.Controllers
         public async Task<IActionResult> UpdateNote([FromRoute] Guid noteId, [FromBody] NoteDTO noteDTO)
         {
             string token = _jwtTokenService.ExtractTokenFromHeader(Request.Headers);
-            NoteDTO updated = await _noteService.UpdateNote(noteId, noteDTO, token);
+            bool ok = await _noteService.UpdateNote(noteId, noteDTO, token);
+            if (!ok)
+            {
+                return NotFound();
+            }
 
-            return Ok(updated);
+            return Ok(noteDTO);
         }
 
         [HttpDelete("{noteId}")]
         public async Task<IActionResult> DeleteNote([FromRoute] Guid noteId)
         {
             string token = _jwtTokenService.ExtractTokenFromHeader(Request.Headers);
-            var result = await _noteService.DeleteNote(noteId, token);
+            bool ok = await _noteService.DeleteNote(noteId, token);
 
-            return Ok(result);
+            if (!ok)
+            {
+                return NotFound();
+            }
+
+            return Ok(new {message = "Delete note successfully"});
         }
     }
 }

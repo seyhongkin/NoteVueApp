@@ -1,47 +1,66 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div>
+    <header class="sticky inset-0 z-50 border-b border-slate-100 bg-white/80 backdrop-blur-lg">
+      <nav class="mx-auto flex gap-8 px-6 transition-all duration-200 ease-in-out lg:px-12 py-4">
+        <div class="relative flex items-center">
+          <a href="/">
+            <img src="https://www.svgrepo.com/show/499831/target.svg" loading="lazy" style="color:transparent" width="32" height="32">
+          </a>
+        </div>
+        <ul class="items-center justify-center gap-6 md:flex">
+          <li class="pt-1.5 font-dm text-sm font-medium text-slate-700">
+            <router-link to="/">Home</router-link>
+          </li>
+        </ul>
+        <div class="flex-grow"></div>
+        <div class="items-center justify-center gap-6 md:flex">
+          <!-- Show Register and Sign In buttons if not authenticated -->
+          <button v-if="!authToken"
+                  class="rounded-md cursor-pointer bg-gradient-to-br from-blue-600 to-emerald-400 px-3 py-1.5 font-dm text-sm font-medium text-white shadow-md shadow-green-400/50 transition-transform duration-200 ease-in-out hover:scale-[1.03]">
+            Register
+          </button>
+          <button v-if="!authToken"
+                  @click="redirectToLogin"
+                  class="rounded-md cursor-pointer bg-gradient-to-br from-green-600 to-emerald-400 px-3 py-1.5 font-dm text-sm font-medium text-white shadow-md shadow-green-400/50 transition-transform duration-200 ease-in-out hover:scale-[1.03]">
+            Sign in
+          </button>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+          <!-- Show Logout button if authenticated -->
+          <button v-if="authToken"
+                  @click="logout"
+                  class="rounded-md cursor-pointer bg-gradient-to-br from-green-600 to-emerald-400 px-3 py-1.5 font-dm text-sm font-medium text-white shadow-md shadow-green-400/50 transition-transform duration-200 ease-in-out hover:scale-[1.03]">
+            Logout
+          </button>
+        </div>
+      </nav>
+    </header>
+    <router-view></router-view>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script>
+  export default {
+    data() {
+      return {
+        // Store auth token reactively
+        authToken: localStorage.getItem('authToken') || null
+      };
+    },
+    methods: {
+      logout() {
+        // Remove auth token from localStorage
+        localStorage.removeItem("authToken");
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+        // Update the reactive authToken
+        this.authToken = null;
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+        // Redirect to login page
+        this.$router.push("/login");
+      },
+      redirectToLogin() {
+        // Redirect to login page when clicking the "Sign in" button
+        this.$router.push("/login");
+      }
+    }
+  };
+</script>
